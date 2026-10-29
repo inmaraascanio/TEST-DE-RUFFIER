@@ -8,6 +8,7 @@ from timer import Timer
 
 
 from logic import *
+
 from instructions import * 
 
 # Variables globales 
@@ -53,16 +54,20 @@ class MainScreen(Screen):
 
     def next_screen(self, *args):
         global name, age
-        name = self.input_name.text.strip()
-        age = check_int(self.input_age.text)
+        nombre_ingresado = self.input_name.text.strip()
+        if nombre_ingresado == "":
+            name = "Usuario"
+        else:
+            name = nombre_ingresado
 
-        if age < 7 or age == False or name == "":
-            age = 7
-            self.age_input.text = str(age)
-            self.name_input.text
+        edad_validada = check_int(self.input_age.text)
 
-            
+        if edad_validada is False:
+            return
+        
+        age = edad_validada
         self.manager.current = "pulse1"
+        
 
 class Pulse1Screen(Screen):
     def __init__(self, **kwargs):
